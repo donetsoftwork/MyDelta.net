@@ -4,6 +4,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>0.2.0-alpha</Version>
+    <Description>MyDelta的ApiSchema转化器</Description>
+    <PackageTags>MyDelta;OpenApi</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>

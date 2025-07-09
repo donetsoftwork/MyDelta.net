@@ -1,5 +1,5 @@
 # MyDeltas.OpenApi
->* ApiSchema转化器
+>* MyDeltas的ApiSchema转化器
 >* 让OpenApi文档与实际效果一致
 
 ## 1. TransformMyDelta
