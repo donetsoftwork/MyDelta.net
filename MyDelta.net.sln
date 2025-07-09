@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		.gitignore = .gitignore
 		filterconfig.yml = filterconfig.yml
 		package.props = package.props
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDeltas", "MyDeltas\MyDeltas.csproj", "{0B9AF081-B7C7-4E3B-B7E6-61F9DE5164E7}"
