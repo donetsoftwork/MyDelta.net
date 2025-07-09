@@ -1,0 +1,19 @@
+<Project>
+
+  <PropertyGroup>
+    <VersionBase>0.2</VersionBase>
+    <TargetFrameworks>net7.0;net8.0;net9.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>    
+    <Authors>jiangxiangji</Authors>
+    <Company>MyDelta.net</Company>
+    <Copyright>Copyright (c) MyDelta.net All Rights Reserved</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/donetsoftwork/MyDelta.net</RepositoryUrl>
+    <PackageProjectUrl>https://donetsoftwork.github.io/MyDelta.net</PackageProjectUrl>
+    <!-- SourceLink settings -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+</Project>

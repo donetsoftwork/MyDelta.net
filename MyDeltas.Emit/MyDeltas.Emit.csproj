@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\package.props" />
+  <PropertyGroup>
+    <Version>$(VersionBase).0-alpha</Version>
+    <PackageId>MyDeltas.Emit</PackageId>
+    <Description>数据变化处理</Description>
+    <PackageTags>Delta;Putch;Emit</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PocoEmit" Version="0.1.1-alpha" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyDeltas\MyDeltas.csproj" />
+  </ItemGroup>
+
+</Project>

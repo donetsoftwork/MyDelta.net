@@ -1,0 +1,57 @@
+@HostAddress = http://localhost:5217
+
+GET {{HostAddress}}/openapi/v1.json
+
+###
+
+GET {{HostAddress}}/todo/
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/todo/1
+Accept: application/json
+
+###
+
+Put {{HostAddress}}/todo
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "Task 3",
+    "isComplete": false,
+    "remark": "Three task"
+}
+
+###
+
+Patch {{HostAddress}}/todo/3
+Content-Type: application/json
+
+{
+	"Name": "Study Data Structure"
+}
+
+###
+
+Delete {{HostAddress}}/todo/3
+Content-Type: application/json
+
+###
+
+Patch {{HostAddress}}/todo/patchchanged3
+Content-Type: application/json
+
+{
+	"Name": "Study Data Changed"
+}
+
+###
+
+Patch {{HostAddress}}/todo/patchmydelta3
+Content-Type: application/json
+
+{
+	"Name": "Study Data is MyDelta"
+}
