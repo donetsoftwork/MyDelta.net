@@ -1,6 +1,8 @@
+using MyDeltas.Json;
 using MyDeltas.Members;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MyDeltas;
 
@@ -11,6 +13,7 @@ namespace MyDeltas;
 /// <param name="instance"></param>
 /// <param name="members"></param>
 /// <param name="changed"></param>
+[JsonConverter(typeof(MyDeltaConverterFactory))]
 public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<string, IMemberAccessor<TStructuralType>> members,  IDictionary<string, object?> changed)
     : MyDelta(changed)
 {
@@ -37,13 +40,12 @@ public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<stri
     /// </summary>
     /// <param name="name"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
+    /// <returns>是否修改</returns>
     public bool TrySetValue(string name, object? value)
     {
         if (!_members.TryGetValue(name, out var member))
             return false;
-        var value0 = member.GetValue(_instance);
-        if(CheckChange(value0, value))
+        if(member.CheckChange(_instance, value))
         {
             SetValue(name, value);
             return true;
@@ -51,33 +53,26 @@ public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<stri
         return false;
     }
     /// <summary>
-    /// 复制被修改的属性值
+    /// 增量修改
     /// </summary>
     /// <param name="original"></param>
-    public void CopyChangedValues(TStructuralType original)
+    /// <returns>是否变化</returns>
+    public bool Patch(TStructuralType original)
     {
+        bool changed = false;
         foreach (var item in _data)
         {
             if (_members.TryGetValue(item.Key, out var member))
-                member.SetValue(original, item.Value);
+                changed = member.TrySetValue(original, item.Value);
         }
-    }
-    /// <summary>
-    /// 修补
-    /// </summary>
-    /// <param name="original"></param>
-    /// <returns></returns>
-    public TStructuralType Patch(TStructuralType original)
-    {
-        CopyChangedValues(original);
-        return original;
+        return changed;
     }
     /// <summary>
     /// 覆盖
     /// </summary>
     /// <param name="original"></param>
     /// <returns></returns>
-    public TStructuralType Put(TStructuralType original)
+    public void Put(TStructuralType original)
     {
         foreach (var item in _members)
         {
@@ -86,7 +81,6 @@ public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<stri
             else
                 item.Value.Copy(_instance, original);
         }
-        return original;
     }
     #endregion
 }

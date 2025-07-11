@@ -17,6 +17,8 @@ public class MyDeltaConverterFactory(IMyDeltaFactory deltaFactory)
     public MyDeltaConverterFactory()
         : this(new MyDeltaFactory())
     {
+        //var stackTrace = new System.Diagnostics.StackTrace();
+        //Console.WriteLine(stackTrace);
     }
     private readonly IMyDeltaFactory _deltaFactory = deltaFactory;
     /// <summary>

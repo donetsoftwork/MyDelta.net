@@ -7,13 +7,33 @@ namespace MyDeltas.Members;
 public interface IMemberAccessor<TStructuralType>
 {
     /// <summary>
+    /// 判断值是否变更
+    /// </summary>
+    /// <param name="instance"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    bool CheckChange(TStructuralType instance, object? value);
+    /// <summary>
     /// 获取值
     /// </summary>
     /// <param name="instance"></param>
     /// <returns></returns>
     object? GetValue(TStructuralType instance);
     /// <summary>
-    /// 设置值
+    /// 检查值类型
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    object? CheckValue(object? value);
+    /// <summary>
+    /// 尝试修改值
+    /// </summary>
+    /// <param name="instance"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    bool TrySetValue(TStructuralType instance, object? value);
+    /// <summary>
+    /// 修改值
     /// </summary>
     /// <param name="instance"></param>
     /// <param name="value"></param>

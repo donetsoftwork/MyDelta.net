@@ -15,26 +15,31 @@ public abstract class MemberAccessor<TStructuralType>(Type memberType)
     /// </summary>
     public Type MemberType
         => _memberType;
-    /// <summary>
-    /// 复制值
-    /// </summary>
-    /// <param name="from"></param>
-    /// <param name="to"></param>
+    /// <inheritdoc />
     public virtual void Copy(TStructuralType from, TStructuralType to)
         => SetValueCore(to, GetValue(from));
-    /// <summary>
-    /// 获取值
-    /// </summary>
-    /// <param name="instance"></param>
-    /// <returns></returns>
+    /// <inheritdoc />
     public abstract object? GetValue(TStructuralType instance);
-    /// <summary>
-    /// 设置值
-    /// </summary>
-    /// <param name="instance"></param>
-    /// <param name="value"></param>
+    /// <inheritdoc />
+    public bool TrySetValue(TStructuralType instance, object? value)
+    {
+        var valueChecked = CheckValue(value);
+        if (MyDelta.CheckChange(GetValue(instance), valueChecked))
+        {
+            SetValueCore(instance, valueChecked);
+            return true;
+        }
+        return false;
+    }
+    /// <inheritdoc />
+    public object? CheckValue(object? value)
+        => MyDelta.CheckValueType(value, _memberType);
+    /// <inheritdoc />
+    public bool CheckChange(TStructuralType instance, object? value)
+        => MyDelta.CheckChange(GetValue(instance), CheckValue(value));
+    /// <inheritdoc />
     public void SetValue(TStructuralType instance, object? value)
-        => SetValueCore(instance, MyDelta.CheckValueType(value, _memberType));
+        => SetValueCore(instance, CheckValue(value));
     /// <summary>
     /// 设置值原始方法
     /// </summary>

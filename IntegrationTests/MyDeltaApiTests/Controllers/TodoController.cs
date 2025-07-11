@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using MyDeltaApiTests.Models;
 using MyDeltas;
 using System.Net.Mime;
@@ -10,9 +11,11 @@ namespace MyDeltaApiTests.Controllers;
 /// </summary>
 [Route("[controller]")]
 [ApiController]
-public class TodoController : ControllerBase
+public class TodoController(IOptions<JsonOptions> jsonOptions) : ControllerBase
 {
     private static List<TodoItem> _todoItems = [];
+    private readonly IOptions<JsonOptions> _jsonOptions = jsonOptions;
+
     static TodoController()
     {
         // 初始化一些示例数据
@@ -73,8 +76,8 @@ public class TodoController : ControllerBase
     /// <param name="delta"></param>
     /// <returns></returns>
     [HttpPatch("{id}")]
-    [Consumes(typeof(TodoItem), MediaTypeNames.Application.Json)]
     [ProducesResponseType<TodoItem>(200)]
+    [ProducesResponseType<string>(304)]
     [ProducesResponseType<string>(404)]
     public ActionResult Patch([FromRoute] long id, [FromBody] MyDelta<TodoItem> delta)
     {
@@ -82,8 +85,9 @@ public class TodoController : ControllerBase
         if (existingTodo == null)
             return NotFound($"Todo with Id {id} not found.");
         // 应用变化
-        delta.Patch(existingTodo);
-        return Ok(existingTodo);
+        if (delta.Patch(existingTodo))
+            return Ok(existingTodo);
+        return StatusCode(304, "Todo with Id {id} not modified.");
     }
     /// <summary>
     /// 保存代办的变化

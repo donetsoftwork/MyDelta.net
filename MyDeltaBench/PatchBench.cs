@@ -47,13 +47,8 @@ public class PatchBench
     [Benchmark(Baseline = true)]
     public void Default()
     {
-        _default.CopyChangedValues(_test);
+        _default.Patch(_test);
     }
-    //[Benchmark]
-    //public void CopyChangedValues2()
-    //{
-    //    _default.CopyChangedValues2(_test);
-    //}
     [Benchmark]
     public void Emit()
     {

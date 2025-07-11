@@ -1,0 +1,23 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!csharp
+
+#r "nuget:SystemTextJsonPatch"
+#!import ./TodoItem.cs
+
+#!csharp
+
+using SystemTextJsonPatch;
+using System.Text.Json;
+JsonPatchDocument<TodoItem> patch = new();
+patch.Replace(todo => todo.Name, "JsonPath");
+var json = JsonSerializer.Serialize(patch);
+json.Display();
+
+#!csharp
+
+var todoNew = new TodoItem();
+patch.ApplyTo(todoNew);
+todoNew.Display();

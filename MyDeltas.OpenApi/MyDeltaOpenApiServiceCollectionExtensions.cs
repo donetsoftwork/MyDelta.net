@@ -14,5 +14,9 @@ public static class MyDeltaOpenApiServiceCollectionExtensions
     /// <param name="options"></param>
     /// <returns></returns>
     public static OpenApiOptions TransformMyDelta(this OpenApiOptions options)
-        => options.AddSchemaTransformer(new MyDeltaApiSchemaTransformer());
+    {
+        var transformer = new MyDeltaApiSchemaTransformer(/*options*/);
+        return options.AddSchemaTransformer(transformer)
+            .AddDocumentTransformer(transformer);
+    }
 }

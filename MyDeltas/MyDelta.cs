@@ -1,6 +1,8 @@
+using MyDeltas.Json;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MyDeltas;
 
@@ -8,6 +10,7 @@ namespace MyDeltas;
 /// 数据变化
 /// </summary>
 /// <param name="data"></param>
+[JsonConverter(typeof(MyDeltaConverterFactory))]
 public class MyDelta(IDictionary<string, object?> data)
 {
     /// <summary>
@@ -59,7 +62,7 @@ public class MyDelta(IDictionary<string, object?> data)
         => _data.TryGetValue(name, out var value) ? value : throw new ArgumentOutOfRangeException(name);
     #endregion
     /// <summary>
-    /// 判断属性值是否变更
+    /// 判断值是否变更
     /// </summary>
     /// <param name="value0"></param>
     /// <param name="value"></param>

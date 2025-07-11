@@ -1,6 +1,7 @@
 using MyDeltas;
 using MyDeltas.Members;
 using MyDeltaTests.Supports;
+using System.Text.Json;
 
 namespace MyDeltaTests;
 
@@ -34,8 +35,29 @@ public class MyDeltaFactoryTests
     {
         MyDelta<TodoItem> delta = _factory.Create<TodoItem>();
         Assert.True(delta.Data.Count == 0);
-        delta.SetValue("Name", "Change2");
+        delta.SetValue(nameof(TodoItem.Name), "Change2");
         Assert.True(delta.HasChanged("Name"));
         Assert.True(delta.Data.Count == 1);
+    }
+    [Fact]
+    public void Change()
+    {
+        var todo = new TodoItem { Id = 1, Name = "Task 1", IsComplete = false, Remark = "First task" };
+        MyDelta<TodoItem> delta1 = _factory.Create(todo);
+        Assert.True(delta1.Data.Count == 0);
+        delta1.SetValue(nameof(TodoItem.Name), "Change");
+        var todoNew = new TodoItem();
+        delta1.Put(todoNew);
+        Assert.False(delta1.Patch(todoNew));
+        delta1.SetValue(nameof(TodoItem.IsComplete), true);
+        Assert.True(delta1.Patch(todoNew));
+    }
+    [Fact]
+    public void Json()
+    {
+        MyDelta<TodoItem> delta = _factory.Create<TodoItem>();
+        delta.TrySetValue(nameof(TodoItem.Name), "Test");
+        string json = JsonSerializer.Serialize(delta);
+        Assert.Contains("Name", json);
     }
 }

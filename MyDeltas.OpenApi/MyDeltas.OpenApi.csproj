@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="..\package.props" />
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <Version>0.2.0-alpha</Version>
+    <Version>$(VersionBase).0-alpha</Version>
+    <PackageId>MyDeltas.OpenApi</PackageId>
     <Description>MyDelta的ApiSchema转化器</Description>
     <PackageTags>MyDelta;OpenApi</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -17,7 +16,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDeltas\MyDeltas.csproj" />

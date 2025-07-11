@@ -5,7 +5,7 @@ _layout: landing
 # MyDeltas
 >数据变化,类似OData中的Delta
 
-## 一、三个子项目
+## 三个功能项目
 ### 1、[MyDeltas](./deltas.md)
 >* 主项目
 >* 数据变化,类似OData中的Delta

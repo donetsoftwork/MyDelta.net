@@ -1,0 +1,24 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!csharp
+
+#r "nuget:MyDeltas,0.3.0-alpha"
+#!import ./TodoItem.cs
+
+#!csharp
+
+using MyDeltas;
+using System.Text.Json;
+MyDeltaFactory factory = new();
+var delta = factory.Create<TodoItem>();
+delta.TrySetValue(nameof(TodoItem.Name), "MyDeltas");
+var json = JsonSerializer.Serialize(delta);
+json.Display();
+
+#!csharp
+
+var todoNew = new TodoItem();
+delta.Patch(todoNew);
+todoNew.Display();
