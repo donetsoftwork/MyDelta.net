@@ -6,7 +6,7 @@
     <Version>$(VersionBase).0-alpha</Version>
     <PackageId>MyDeltas</PackageId>
     <Description>数据变化处理</Description>
-    <PackageTags>Delta;Putch</PackageTags>
+    <PackageTags>Delta;Patch</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 

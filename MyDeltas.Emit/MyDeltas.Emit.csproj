@@ -13,7 +13,7 @@
     <Content Include="readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="PocoEmit" Version="0.1.1-alpha" />
+    <PackageReference Include="PocoEmit" Version="0.2.0-alpha" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDeltas\MyDeltas.csproj" />

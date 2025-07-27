@@ -1,43 +1,55 @@
-using MyDeltas.Emit.Reflection;
+using MyDeltas.Emit.Members;
 using MyDeltas.Members;
-using MyDeltas.Reflection;
+using PocoEmit;
+using PocoEmit.Collections;
+using PocoEmit.Configuration;
 using System;
 using System.Collections.Generic;
 
 namespace MyDeltas.Emit;
 
 /// <summary>
-/// 默认成员访问器工厂
+/// Emit成员访问器工厂
 /// </summary>
+/// <param name="options"></param>
 /// <param name="memberComparer"></param>
-public class EmitDeltaFactory(IEqualityComparer<string> memberComparer)
+public class EmitDeltaFactory(IPocoOptions options, IEqualityComparer<string> memberComparer)
     :  MemberAccessorFactoryBase(memberComparer)
 {
     /// <summary>
     /// 默认成员访问器工厂
     /// </summary>
     public EmitDeltaFactory()
-        : this(StringComparer.Ordinal)
+        : this(Poco.Global, StringComparer.Ordinal)
     {
     }
+    #region 配置
+    private readonly IPocoOptions _options = options;
+    /// <summary>
+    /// Emit配置
+    /// </summary>
+    public IPocoOptions Options
+        => _options;
+    #endregion
+
     /// <inheritdoc />
     protected override void CheckMembers<TStructuralType>(IDictionary<string, IMemberAccessor<TStructuralType>> members)
     {
-        Inner.Property.CheckMembers(ReflectionProperty.GetProperties<TStructuralType>(), members);
-        Inner.Field.CheckMembers(ReflectionField.GetFields<TStructuralType>(), members);
-    }
-     /// <summary>
-    /// 内部延迟初始化
-    /// </summary>
-    static class Inner
-    {
-        /// <summary>
-        /// 获取属性成员
-        /// </summary>
-        public static readonly EmitProperty Property = new();
-        /// <summary>
-        /// 获取字段成员
-        /// </summary>
-        public static readonly EmitField Field = new();
+        var list = _options.GetTypeMembers<TStructuralType>()?.WriteMembers?.Values;
+        if (list == null || list.Count == 0)
+            return;
+        var readerCacher = MemberContainer.Instance.MemberReaderCacher;
+        var writerCacher = MemberContainer.Instance.MemberWriterCacher;
+        foreach (var item in list)
+        {
+            var reader = readerCacher.Get(item);
+            if(reader is null)
+                continue;
+            var writer = writerCacher.Get(item);
+            if (writer is null)
+                continue;
+            EmitAccessor<TStructuralType> accessor = new(reader, writer);
+            members[item.Name] = accessor;
+        }
     }
 }

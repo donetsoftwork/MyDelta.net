@@ -19,7 +19,7 @@ public class MyDeltaApiSchemaTransformer/*(OpenApiOptions options)*/
     //private readonly OpenApiOptions _options = options;
     private OpenApiDocument? _document = null;
     private readonly Dictionary<Type, OpenApiSchema> _schemas = [];
-    // <inheritdoc />
+    /// <inheritdoc />
     public Task TransformAsync(OpenApiSchema schema, OpenApiSchemaTransformerContext context, CancellationToken cancellationToken)
     {
         if(cancellationToken.IsCancellationRequested)
@@ -59,7 +59,7 @@ public class MyDeltaApiSchemaTransformer/*(OpenApiOptions options)*/
     //    //context.GetOrCreateSchemaAsync
     //    throw new NotImplementedException();
     //}
-    // <inheritdoc />
+    /// <inheritdoc />
     public Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
     {
         _document = document;

@@ -9,8 +9,8 @@ namespace MyDeltaBench.Members;
 public class SetIntBench : MemberBenchBase
 {
     IMemberAccessor<TestClass> _propertyId = _property["Id"];
-    static Func<TestClass, object?> _emitGetter = InstancePropertyHelper.EmitGetter<TestClass, object?>("Id");
-    static Action<TestClass, object?> _emitSetter = InstancePropertyHelper.EmitSetter<TestClass, object?>("Id");
+    static Func<TestClass, object?> _emitGetter = Poco.Global.GetReadFunc<TestClass, object?>("Id");
+    static Action<TestClass, object?> _emitSetter = Poco.Global.GetWriteAction<TestClass, object?>("Id");
     IMemberAccessor<TestClass> _emitId = new DelegateAccessor<TestClass>(typeof(int), _emitGetter, _emitSetter);
     IMemberAccessor<TestClass> _hardCodeId = new DelegateAccessor<TestClass>(typeof(int),
         obj => obj.Id,

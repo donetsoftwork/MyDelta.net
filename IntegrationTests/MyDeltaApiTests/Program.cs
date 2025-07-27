@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using MyDeltas;
 using MyDeltas.Emit;
 using MyDeltas.Json;
+using PocoEmit;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateSlimBuilder(args);
@@ -28,6 +27,7 @@ app.Run();
 static void ConfigureServices(IServiceCollection services)
 {
     // Add services to the container.
+    //Poco.Global
     IMyDeltaFactory deltaFactory = new EmitDeltaFactory();
     services.AddSingleton(deltaFactory)
         //.Configure<JsonOptions>(options => options.JsonSerializerOptions.Converters.Add(new MyDeltaConverterFactory(deltaFactory)))
@@ -38,4 +38,5 @@ static void ConfigureServices(IServiceCollection services)
         });
 
     services.AddOpenApi(options => options.TransformMyDelta());
+    //var exporter = new JsonSchemaExporter();
 }

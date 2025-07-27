@@ -53,11 +53,19 @@ public class MyDeltaFactoryTests
         Assert.True(delta1.Patch(todoNew));
     }
     [Fact]
-    public void Json()
+    public void Serialize()
     {
         MyDelta<TodoItem> delta = _factory.Create<TodoItem>();
         delta.TrySetValue(nameof(TodoItem.Name), "Test");
         string json = JsonSerializer.Serialize(delta);
         Assert.Contains("Name", json);
+    }
+    [Fact]
+    public void Deserialize()
+    {
+        var json = "{\"Name\":\"Test\"}";
+        MyDelta<TodoItem>? delta = JsonSerializer.Deserialize<MyDelta<TodoItem>>(json);
+        Assert.NotNull(delta);
+        Assert.True(delta.HasChanged("Name"));
     }
 }

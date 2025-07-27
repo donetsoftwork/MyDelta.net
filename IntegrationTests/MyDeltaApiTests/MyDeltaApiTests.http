@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ###
 
-Patch {{HostAddress}}/todo/3
+Patch {{HostAddress}}/todo/2
 Content-Type: application/json
 
 {

@@ -1,4 +1,5 @@
 using MyDeltas.Emit;
+using MyDeltas.Emit.Members;
 using MyDeltas.EmitTests.Supports;
 using MyDeltas.Members;
 
@@ -7,7 +8,6 @@ namespace MyDeltas.EmitTests;
 public class EmitDeltaFactoryTests
 {
     private static readonly EmitDeltaFactory _factory = new();
-
     [Fact]
     public void GetMembers()
     {
@@ -24,11 +24,11 @@ public class EmitDeltaFactoryTests
         var members = factory.GetMembers<TodoItem>();
         Assert.True(members.ContainsKey(nameof(TodoItem.Name)));
         Assert.True(members.TryGetValue(nameof(TodoItem.Id), out var idAccessor));
-        Assert.IsType<DelegateAccessor<TodoItem, long>>(idAccessor);
+        Assert.IsType<EmitAccessor<TodoItem>>(idAccessor);
         Assert.True(members.TryGetValue(nameof(TodoItem.IsComplete), out var isCompleteAccessor));
-        Assert.IsType<DelegateAccessor<TodoItem>>(isCompleteAccessor);
+        Assert.IsType<EmitAccessor<TodoItem>>(isCompleteAccessor);
         Assert.True(members.TryGetValue(nameof(TodoItem.Remark), out var remarkAccessor));
-        Assert.IsType<DelegateAccessor<TodoItem>>(remarkAccessor);
+        Assert.IsType<EmitAccessor<TodoItem>>(remarkAccessor);
     }
     [Fact]
     public void Create()

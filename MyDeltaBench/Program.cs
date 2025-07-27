@@ -24,10 +24,10 @@ partial class Program
             Name = "InitialName",
             CreatedAt = DateTime.Now
         };
-        Action<TestClass2, object?> nameSetter = InstancePropertyHelper.EmitSetter<TestClass2, object?>("Name");
+        Action<TestClass2, object?> nameSetter = Poco.Global.GetWriteAction<TestClass2, object?>("Name");
         nameSetter(testClass2, "EmitName");
         Console.WriteLine(testClass2.Name);
-        Func<TestClass2, object?> idGetter = InstancePropertyHelper.EmitGetter<TestClass2, object?>("Id");
+        Func<TestClass2, object?> idGetter = Poco.Global.GetReadFunc<TestClass2, object?>("Id");
         Console.WriteLine(idGetter(testClass2));
     }
 
