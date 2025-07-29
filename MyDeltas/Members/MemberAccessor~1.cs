@@ -23,10 +23,9 @@ public abstract class MemberAccessor<TStructuralType>(Type memberType)
     /// <inheritdoc />
     public bool TrySetValue(TStructuralType instance, object? value)
     {
-        var valueChecked = CheckValue(value);
-        if (MyDelta.CheckChange(GetValue(instance), valueChecked))
+        if (MyDelta.CheckChange(GetValue(instance), value))
         {
-            SetValueCore(instance, valueChecked);
+            SetValueCore(instance, value);
             return true;
         }
         return false;
@@ -34,6 +33,7 @@ public abstract class MemberAccessor<TStructuralType>(Type memberType)
     /// <inheritdoc />
     public object? CheckValue(object? value)
         => MyDelta.CheckValueType(value, _memberType);
+
     /// <inheritdoc />
     public bool CheckChange(TStructuralType instance, object? value)
         => MyDelta.CheckChange(GetValue(instance), CheckValue(value));

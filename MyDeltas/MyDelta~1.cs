@@ -62,8 +62,15 @@ public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<stri
         bool changed = false;
         foreach (var item in _data)
         {
-            if (_members.TryGetValue(item.Key, out var member))
-                changed = member.TrySetValue(original, item.Value);
+            var key = item.Key;
+            if (_members.TryGetValue(key, out var member))
+            {
+                var value = item.Value;
+                var valueChecked = member.CheckValue(value);
+                changed = member.TrySetValue(original, valueChecked);
+                if (CheckChange(value, valueChecked))
+                    _data[key] = valueChecked;
+            }      
         }
         return changed;
     }

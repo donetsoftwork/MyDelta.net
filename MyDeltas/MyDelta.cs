@@ -87,36 +87,61 @@ public class MyDelta(IDictionary<string, object?> data)
     {
         if (value is null)
             return null;
-        var valueType = value.GetType();
-        if (expectedType.IsAssignableFrom(valueType))
+        if (expectedType.IsAssignableFrom(value.GetType()))
             return value;
         if (value is JsonElement jsonElement)
         {
-            switch (jsonElement.ValueKind)
-            {
-                case JsonValueKind.Null:
-                    return null;
-                case JsonValueKind.String:
-                    if (expectedType == typeof(string))
-                        return jsonElement.GetString();
-                    else if (expectedType == typeof(DateTime))
-                        return jsonElement.GetDateTime();
-                    else if (expectedType == typeof(DateTimeOffset))
-                        return jsonElement.GetDateTimeOffset();
-                    else if (expectedType == typeof(Guid))
-                        return jsonElement.GetGuid();
-                    return jsonElement.GetString();
-                case JsonValueKind.Number:
-                    if (expectedType == typeof(decimal))
-                        return jsonElement.GetDecimal();
-                    return jsonElement.GetDouble();
-                case JsonValueKind.True:
-                case JsonValueKind.False:
-                    return jsonElement.GetBoolean();
-                default:
-                    break;
-            }
+            value = GetJsonValue(jsonElement, expectedType);
+            if (value is null)
+                return null;
+            if (expectedType.IsAssignableFrom(value.GetType()))
+                return value;
         }
-        return value;
+        return Convert.ChangeType(value, expectedType);
+    }
+    /// <summary>
+    /// 获取Json值
+    /// </summary>
+    /// <param name="jsonElement"></param>
+    /// <param name="expectedType"></param>
+    /// <returns></returns>
+    public static object? GetJsonValue(JsonElement jsonElement, Type expectedType)
+    {
+        if (expectedType.IsGenericType && expectedType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            expectedType = expectedType.GetGenericArguments()[0];
+        switch (jsonElement.ValueKind)
+        {
+            case JsonValueKind.Null:
+                return null;
+            case JsonValueKind.String:
+                if (expectedType == typeof(string))
+                    return jsonElement.GetString();
+                else if (expectedType == typeof(DateTime))
+                    return jsonElement.GetDateTime();
+                else if (expectedType == typeof(DateTimeOffset))
+                    return jsonElement.GetDateTimeOffset();
+                else if (expectedType == typeof(Guid))
+                    return jsonElement.GetGuid();
+                return jsonElement.GetString();
+            case JsonValueKind.Number:
+                if (expectedType == typeof(int))
+                    return jsonElement.GetInt32();
+                else if (expectedType == typeof(long))
+                    return jsonElement.GetInt64();
+                else if(expectedType == typeof(uint))
+                    return jsonElement.GetUInt32();
+                else if (expectedType == typeof(ulong))
+                    return jsonElement.GetUInt64();
+                else if (expectedType == typeof(float))
+                    return jsonElement.GetSingle();
+                else if (expectedType == typeof(decimal))
+                    return jsonElement.GetDecimal();
+                return jsonElement.GetDouble();
+            case JsonValueKind.True:
+            case JsonValueKind.False:
+                return jsonElement.GetBoolean();
+            default:
+                return null;
+        }
     }
 }

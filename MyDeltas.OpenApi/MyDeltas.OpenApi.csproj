@@ -2,7 +2,7 @@
   <Import Project="..\package.props" />
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Version>$(VersionBase).0-alpha</Version>
+    <Version>$(VersionBase).2-alpha</Version>
     <PackageId>MyDeltas.OpenApi</PackageId>
     <Description>MyDelta的ApiSchema转化器</Description>
     <PackageTags>MyDelta;OpenApi</PackageTags>
@@ -10,10 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="readme.md">
-      <PackagePath>\</PackagePath>
-      <Pack>true</Pack>
-    </Content>
+    <Content Include="readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />

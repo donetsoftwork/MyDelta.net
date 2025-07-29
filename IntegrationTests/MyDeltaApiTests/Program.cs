@@ -28,7 +28,7 @@ static void ConfigureServices(IServiceCollection services)
 {
     // Add services to the container.
     //Poco.Global
-    IMyDeltaFactory deltaFactory = new EmitDeltaFactory();
+    IMyDeltaFactory deltaFactory = new EmitDeltaFactory(Poco.Global, StringComparer.OrdinalIgnoreCase);
     services.AddSingleton(deltaFactory)
         //.Configure<JsonOptions>(options => options.JsonSerializerOptions.Converters.Add(new MyDeltaConverterFactory(deltaFactory)))
         .AddControllers()

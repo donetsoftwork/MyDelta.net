@@ -30,7 +30,8 @@ Patch {{HostAddress}}/todo/2
 Content-Type: application/json
 
 {
-	"Name": "Study Data Structure"
+  "id": 2,
+	"name": "Study Data Structure"
 }
 
 ###
