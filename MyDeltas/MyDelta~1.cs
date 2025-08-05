@@ -9,29 +9,29 @@ namespace MyDeltas;
 /// <summary>
 /// 数据变化
 /// </summary>
-/// <typeparam name="TStructuralType"></typeparam>
+/// <typeparam name="TInstance"></typeparam>
 /// <param name="instance"></param>
 /// <param name="members"></param>
 /// <param name="changed"></param>
 [JsonConverter(typeof(MyDeltaConverterFactory))]
-public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<string, IMemberAccessor<TStructuralType>> members,  IDictionary<string, object?> changed)
+public class MyDelta<TInstance>(TInstance instance, IDictionary<string, IMemberAccessor<TInstance>> members,  IDictionary<string, object?> changed)
     : MyDelta(changed)
 {
     /// <summary>
     /// 数据变化
     /// </summary>
     /// <param name="properties"></param>
-    public MyDelta(IDictionary<string, IMemberAccessor<TStructuralType>> properties)
-        : this(Activator.CreateInstance<TStructuralType>(), properties, new Dictionary<string, object?>())
+    public MyDelta(IDictionary<string, IMemberAccessor<TInstance>> properties)
+        : this(Activator.CreateInstance<TInstance>(), properties, new Dictionary<string, object?>())
     {
     }
     #region 配置
-    private readonly IDictionary<string, IMemberAccessor<TStructuralType>> _members = members;
-    private readonly TStructuralType _instance = instance;
+    private readonly IDictionary<string, IMemberAccessor<TInstance>> _members = members;
+    private readonly TInstance _instance = instance;
     /// <summary>
     /// 实体
     /// </summary>
-    public TStructuralType Instance
+    public TInstance Instance
         => _instance;
     #endregion
     #region 方法
@@ -57,7 +57,7 @@ public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<stri
     /// </summary>
     /// <param name="original"></param>
     /// <returns>是否变化</returns>
-    public bool Patch(TStructuralType original)
+    public bool Patch(TInstance original)
     {
         bool changed = false;
         foreach (var item in _data)
@@ -79,7 +79,7 @@ public class MyDelta<TStructuralType>(TStructuralType instance, IDictionary<stri
     /// </summary>
     /// <param name="original"></param>
     /// <returns></returns>
-    public void Put(TStructuralType original)
+    public void Put(TInstance original)
     {
         foreach (var item in _members)
         {

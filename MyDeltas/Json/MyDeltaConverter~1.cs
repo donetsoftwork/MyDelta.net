@@ -8,10 +8,10 @@ namespace MyDeltas.Json;
 /// <summary>
 /// 泛型MyDelta转换器
 /// </summary>
-/// <typeparam name="TStructuralType"></typeparam>
+/// <typeparam name="TInstance"></typeparam>
 /// <param name="deltaFactory"></param>
-public class MyDeltaConverter<TStructuralType>(IMyDeltaFactory deltaFactory)
-    : JsonConverter<MyDelta<TStructuralType>>
+public class MyDeltaConverter<TInstance>(IMyDeltaFactory deltaFactory)
+    : JsonConverter<MyDelta<TInstance>>
 {
     /// <summary>
     /// 泛型MyDelta转换器
@@ -28,12 +28,12 @@ public class MyDeltaConverter<TStructuralType>(IMyDeltaFactory deltaFactory)
     /// <param name="typeToConvert"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public override MyDelta<TStructuralType>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override MyDelta<TInstance>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var data = JsonSerializer.Deserialize<Dictionary<string, object?>>(ref reader, options);
         if (data is null)
             return null;
-        return _deltaFactory.Create<TStructuralType>(data);
+        return _deltaFactory.Create<TInstance>(data);
     }
     /// <summary>
     /// 写入MyDelta对象(序列化)
@@ -41,7 +41,7 @@ public class MyDeltaConverter<TStructuralType>(IMyDeltaFactory deltaFactory)
     /// <param name="writer"></param>
     /// <param name="value"></param>
     /// <param name="options"></param>
-    public override void Write(Utf8JsonWriter writer, MyDelta<TStructuralType> value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, MyDelta<TInstance> value, JsonSerializerOptions options)
     {
         JsonSerializer.Serialize(writer, value.Data, options);
     }

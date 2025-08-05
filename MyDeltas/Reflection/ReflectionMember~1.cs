@@ -16,24 +16,24 @@ public abstract class ReflectionMember<TMember>
     /// <summary>
     /// 补充成员
     /// </summary>
-    /// <typeparam name="TStructuralType"></typeparam>
+    /// <typeparam name="TInstance"></typeparam>
     /// <param name="list"></param>
     /// <param name="members"></param>
-    public void CheckMembers<TStructuralType>(IEnumerable<TMember> list, IDictionary<string, IMemberAccessor<TStructuralType>> members)
+    public void CheckMembers<TInstance>(IEnumerable<TMember> list, IDictionary<string, IMemberAccessor<TInstance>> members)
     {
         foreach (var item in list)
         {
             var memberName = item.Name;
             members.TryGetValue(memberName, out var member);
             if (member is null)
-                members[memberName] = Create<TStructuralType>(item);
+                members[memberName] = Create<TInstance>(item);
         }
     }
     /// <summary>
     /// 构造新成员
     /// </summary>
-    /// <typeparam name="TStructuralType"></typeparam>
+    /// <typeparam name="TInstance"></typeparam>
     /// <param name="member"></param>
     /// <returns></returns>
-    public abstract IMemberAccessor<TStructuralType> Create<TStructuralType>(TMember member);
+    public abstract IMemberAccessor<TInstance> Create<TInstance>(TMember member);
 }

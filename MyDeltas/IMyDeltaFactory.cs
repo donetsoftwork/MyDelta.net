@@ -10,9 +10,9 @@ public interface IMyDeltaFactory
     /// <summary>
     /// 创建一个新的 MyDelta 实例
     /// </summary>
-    /// <typeparam name="TStructuralType"></typeparam>
+    /// <typeparam name="TInstance"></typeparam>
     /// <param name="instance"></param>
     /// <param name="changed"></param>
     /// <returns>MyDelta 实例</returns>
-    MyDelta<TStructuralType> Create<TStructuralType>(TStructuralType instance, IDictionary<string, object?> changed);
+    MyDelta<TInstance> Create<TInstance>(TInstance instance, IDictionary<string, object?> changed);
 }

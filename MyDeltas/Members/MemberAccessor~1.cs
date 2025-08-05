@@ -5,9 +5,9 @@ namespace MyDeltas.Members;
 /// <summary>
 /// 成员访问器
 /// </summary>
-/// <typeparam name="TStructuralType"></typeparam>
-public abstract class MemberAccessor<TStructuralType>(Type memberType)
-    : IMemberAccessor<TStructuralType>
+/// <typeparam name="TInstance"></typeparam>
+public abstract class MemberAccessor<TInstance>(Type memberType)
+    : IMemberAccessor<TInstance>
 {
     private readonly Type _memberType = memberType;
     /// <summary>
@@ -16,12 +16,12 @@ public abstract class MemberAccessor<TStructuralType>(Type memberType)
     public Type MemberType
         => _memberType;
     /// <inheritdoc />
-    public virtual void Copy(TStructuralType from, TStructuralType to)
+    public virtual void Copy(TInstance from, TInstance to)
         => SetValueCore(to, GetValue(from));
     /// <inheritdoc />
-    public abstract object? GetValue(TStructuralType instance);
+    public abstract object? GetValue(TInstance instance);
     /// <inheritdoc />
-    public bool TrySetValue(TStructuralType instance, object? value)
+    public bool TrySetValue(TInstance instance, object? value)
     {
         if (MyDelta.CheckChange(GetValue(instance), value))
         {
@@ -35,15 +35,15 @@ public abstract class MemberAccessor<TStructuralType>(Type memberType)
         => MyDelta.CheckValueType(value, _memberType);
 
     /// <inheritdoc />
-    public bool CheckChange(TStructuralType instance, object? value)
+    public bool CheckChange(TInstance instance, object? value)
         => MyDelta.CheckChange(GetValue(instance), CheckValue(value));
     /// <inheritdoc />
-    public void SetValue(TStructuralType instance, object? value)
+    public void SetValue(TInstance instance, object? value)
         => SetValueCore(instance, CheckValue(value));
     /// <summary>
     /// 设置值原始方法
     /// </summary>
     /// <param name="instance"></param>
     /// <param name="value"></param>
-    protected abstract void SetValueCore(TStructuralType instance, object? value);
+    protected abstract void SetValueCore(TInstance instance, object? value);
 }

@@ -11,16 +11,16 @@ namespace MyDeltas.Reflection;
 public sealed class ReflectionProperty : ReflectionMember<PropertyInfo>
 {
     /// <inheritdoc />
-    public override IMemberAccessor<TStructuralType> Create<TStructuralType>(PropertyInfo member)
-        => new PropertyAccessor<TStructuralType>(member);
+    public override IMemberAccessor<TInstance> Create<TInstance>(PropertyInfo member)
+        => new PropertyAccessor<TInstance>(member);
     #region GetProperties
     /// <summary>
     /// 获取所有属性
     /// </summary>
-    /// <typeparam name="TStructuralType"></typeparam>
+    /// <typeparam name="TInstance"></typeparam>
     /// <returns></returns>
-    public static IEnumerable<PropertyInfo> GetProperties<TStructuralType>()
-        => GetProperties(typeof(TStructuralType));
+    public static IEnumerable<PropertyInfo> GetProperties<TInstance>()
+        => GetProperties(typeof(TInstance));
     /// <summary>
     /// 获取所有属性
     /// </summary>

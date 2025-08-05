@@ -20,10 +20,10 @@ public class MyDeltaFactory(IEqualityComparer<string> memberComparer)
     {
     }
     /// <inheritdoc />
-    protected override void CheckMembers<TStructuralType>(IDictionary<string, IMemberAccessor<TStructuralType>> members)
+    protected override void CheckMembers<TInstance>(IDictionary<string, IMemberAccessor<TInstance>> members)
     {
-        Inner.Property.CheckMembers(ReflectionProperty.GetProperties<TStructuralType>(), members);
-        Inner.Field.CheckMembers(ReflectionField.GetFields<TStructuralType>(), members);
+        Inner.Property.CheckMembers(ReflectionProperty.GetProperties<TInstance>(), members);
+        Inner.Field.CheckMembers(ReflectionField.GetFields<TInstance>(), members);
     }
     /// <summary>
     /// 内部延迟初始化

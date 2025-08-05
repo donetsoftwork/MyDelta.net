@@ -13,7 +13,7 @@ namespace MyDeltas.Emit;
 /// </summary>
 /// <param name="options"></param>
 /// <param name="memberComparer"></param>
-public class EmitDeltaFactory(IPocoOptions options, IEqualityComparer<string> memberComparer)
+public class EmitDeltaFactory(IPoco options, IEqualityComparer<string> memberComparer)
     :  MemberAccessorFactoryBase(memberComparer)
 {
     /// <summary>
@@ -24,32 +24,30 @@ public class EmitDeltaFactory(IPocoOptions options, IEqualityComparer<string> me
     {
     }
     #region 配置
-    private readonly IPocoOptions _options = options;
+    private readonly IPoco _options = options;
     /// <summary>
     /// Emit配置
     /// </summary>
-    public IPocoOptions Options
+    public IPoco Options
         => _options;
     #endregion
 
     /// <inheritdoc />
-    protected override void CheckMembers<TStructuralType>(IDictionary<string, IMemberAccessor<TStructuralType>> members)
+    protected override void CheckMembers<TInstance>(IDictionary<string, IMemberAccessor<TInstance>> members)
     {
-        var list = _options.GetTypeMembers<TStructuralType>()?.WriteMembers?.Values;
-        if (list == null || list.Count == 0)
+        var bundle = _options.GetTypeMembers<TInstance>();
+        if (bundle == null)
             return;
         var readerCacher = MemberContainer.Instance.MemberReaderCacher;
         var writerCacher = MemberContainer.Instance.MemberWriterCacher;
-        foreach (var item in list)
+        foreach (var writer in bundle.EmitWriters.Values)
         {
-            var reader = readerCacher.Get(item);
+            var member = writer.Info;
+            var reader = readerCacher.Get(member);
             if(reader is null)
                 continue;
-            var writer = writerCacher.Get(item);
-            if (writer is null)
-                continue;
-            EmitAccessor<TStructuralType> accessor = new(reader, writer);
-            members[item.Name] = accessor;
+            EmitAccessor<TInstance> accessor = new(reader, writer);
+            members[member.Name] = accessor;
         }
     }
 }

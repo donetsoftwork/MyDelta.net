@@ -10,13 +10,13 @@ public interface IMemberAccessorFactory
     /// <summary>
     /// 创建成员访问器
     /// </summary>
-    /// <typeparam name="TStructuralType"></typeparam>
+    /// <typeparam name="TInstance"></typeparam>
     /// <returns></returns>
-    IDictionary<string, IMemberAccessor<TStructuralType>> GetMembers<TStructuralType>();
+    IDictionary<string, IMemberAccessor<TInstance>> GetMembers<TInstance>();
     /// <summary>
     /// 设置成员访问器
     /// </summary>
-    /// <typeparam name="TStructuralType"></typeparam>
+    /// <typeparam name="TInstance"></typeparam>
     /// <param name="members"></param>
-    void SetMembers<TStructuralType>(IDictionary<string, IMemberAccessor<TStructuralType>> members);
+    void SetMembers<TInstance>(IDictionary<string, IMemberAccessor<TInstance>> members);
 }

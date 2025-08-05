@@ -3,7 +3,7 @@
   <Import Project="..\package.props" />
   <PropertyGroup>
     <TargetFrameworks>net7.0;net8.0;net9.0;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>$(VersionBase).2-alpha</Version>
+    <Version>$(VersionBase).3-alpha</Version>
     <PackageId>MyDeltas.Emit</PackageId>
     <Description>数据变化处理</Description>
     <PackageTags>Delta;Putch;Emit</PackageTags>
@@ -13,7 +13,7 @@
     <Content Include="readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="PocoEmit" Version="0.2.0-alpha" />
+    <PackageReference Include="PocoEmit" Version="0.4.0-alpha" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDeltas\MyDeltas.csproj" />

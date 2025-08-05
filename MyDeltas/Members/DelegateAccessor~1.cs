@@ -5,11 +5,11 @@ namespace MyDeltas.Members;
 /// <summary>
 /// 委托访问器
 /// </summary>
-/// <typeparam name="TStructuralType"></typeparam>
+/// <typeparam name="TInstance"></typeparam>
 /// <param name="memberType"></param>
 /// <param name="getter"></param>
 /// <param name="setter"></param>
-public class DelegateAccessor<TStructuralType>(Type memberType, Func<TStructuralType, object?> getter, Action<TStructuralType, object?> setter)
-     : DelegateAccessor<TStructuralType, object?>(memberType, getter, setter)
+public class DelegateAccessor<TInstance>(Type memberType, Func<TInstance, object?> getter, Action<TInstance, object?> setter)
+     : DelegateAccessor<TInstance, object?>(memberType, getter, setter)
 {
 }
