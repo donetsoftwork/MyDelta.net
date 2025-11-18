@@ -1,22 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\package.props" />
-  <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0;net9.0;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>$(VersionBase).3-alpha</Version>
-    <PackageId>MyDeltas.Emit</PackageId>
-    <Description>数据变化处理</Description>
-    <PackageTags>Delta;Putch;Emit</PackageTags>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Content Include="readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="PocoEmit" Version="0.4.0-alpha" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MyDeltas\MyDeltas.csproj" />
-  </ItemGroup>
+	<Import Project="..\package.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net7.0;net8.0;net9.0;net10.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+		<Version>$(VersionBase).0-alpha</Version>
+		<PackageId>MyDeltas.Emit</PackageId>
+		<Description>数据变化处理</Description>
+		<PackageTags>Delta;Putch;Emit</PackageTags>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<RootNamespace>MyDeltas</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<Content Include="readme.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="PocoEmit" Version="0.8.0-alpha" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MyDeltas\MyDeltas.csproj" />
+	</ItemGroup>
 
 </Project>

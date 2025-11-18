@@ -1,7 +1,6 @@
 using BenchmarkDotNet.Attributes;
 using MyDeltaBench.Supports;
 using MyDeltas;
-using MyDeltas.Emit;
 using MyDeltas.Members;
 
 namespace MyDeltaBench;

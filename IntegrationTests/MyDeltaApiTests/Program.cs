@@ -1,5 +1,4 @@
 using MyDeltas;
-using MyDeltas.Emit;
 using MyDeltas.Json;
 using PocoEmit;
 using Scalar.AspNetCore;
@@ -27,8 +26,8 @@ app.Run();
 static void ConfigureServices(IServiceCollection services)
 {
     // Add services to the container.
-    //Poco.Global
-    IMyDeltaFactory deltaFactory = new EmitDeltaFactory(Poco.Global, StringComparer.OrdinalIgnoreCase);
+    //Poco.Default
+    IMyDeltaFactory deltaFactory = new EmitDeltaFactory(Poco.Default, StringComparer.OrdinalIgnoreCase);
     services.AddSingleton(deltaFactory)
         //.Configure<JsonOptions>(options => options.JsonSerializerOptions.Converters.Add(new MyDeltaConverterFactory(deltaFactory)))
         .AddControllers()
@@ -38,5 +37,4 @@ static void ConfigureServices(IServiceCollection services)
         });
 
     services.AddOpenApi(options => options.TransformMyDelta());
-    //var exporter = new JsonSchemaExporter();
 }

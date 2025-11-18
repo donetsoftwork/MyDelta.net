@@ -1,5 +1,3 @@
-using MyDeltas.Emit;
-using MyDeltas.Emit.Members;
 using MyDeltas.EmitTests.Supports;
 using MyDeltas.Members;
 

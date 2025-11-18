@@ -1,7 +1,6 @@
 using BenchmarkDotNet.Attributes;
 using MyDeltaBench.Supports;
 using MyDeltas;
-using MyDeltas.Emit;
 using MyDeltas.Members;
 
 namespace MyDeltaBench;
@@ -35,10 +34,10 @@ public class PatchBench
         myDelta.SetValue(nameof(TestClass.Name), "DeltaBench");
         myDelta.SetValue(nameof(TestClass.Id), 11);
         myDelta.SetValue(nameof(TestClass.CreatedAt), DateTime.Now);
-        //myDelta.SetValue(nameof(TestClass.IntField), 12);
-        //myDelta.SetValue(nameof(TestClass.StringField), "StringField");
-        //myDelta.SetValue(nameof(TestClass.StringProperty), "StringProperty");
-        //myDelta.SetValue(nameof(TestClass.DateTimeField), DateTime.Now);
+        myDelta.SetValue(nameof(TestClass.IntField), 12);
+        myDelta.SetValue(nameof(TestClass.StringField), "StringField");
+        myDelta.SetValue(nameof(TestClass.StringProperty), "StringProperty");
+        myDelta.SetValue(nameof(TestClass.DateTimeField), DateTime.Now);
     }
     MyDelta<TestClass> _default;
     MyDelta<TestClass> _emit;

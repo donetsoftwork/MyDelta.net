@@ -1,6 +1,7 @@
 using MyDeltas.Json;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -11,6 +12,7 @@ namespace MyDeltas;
 /// </summary>
 /// <param name="data"></param>
 [JsonConverter(typeof(MyDeltaConverterFactory))]
+[DefaultMember("Data")]
 public class MyDelta(IDictionary<string, object?> data)
 {
     /// <summary>
@@ -58,7 +60,7 @@ public class MyDelta(IDictionary<string, object?> data)
     /// <param name="name"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public virtual object? GetValue(string name)
+    public object? GetValue(string name)
         => _data.TryGetValue(name, out var value) ? value : throw new ArgumentOutOfRangeException(name);
     #endregion
     /// <summary>
@@ -69,9 +71,9 @@ public class MyDelta(IDictionary<string, object?> data)
     /// <returns></returns>
     public static bool CheckChange(object? value0, object? value)
     {
-        if (value0 == null)
+        if (value0 is null)
         {
-            if (value == null)
+            if (value is null)
                 return false;
             return true;
         }

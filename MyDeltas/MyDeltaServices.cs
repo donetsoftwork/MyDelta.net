@@ -50,7 +50,7 @@ public static class MyDeltaServices
     /// <summary>
     /// 创建一个新的 MyDelta 实例
     /// </summary>
-    /// <typeparam name="TInstance">结构类型</typeparam>
+    /// <typeparam name="TInstance">类型</typeparam>
     /// <param name="factory"></param>
     /// <returns>MyDelta 实例</returns>
     public static MyDelta<TInstance> Create<TInstance>(this IMyDeltaFactory factory)
@@ -97,7 +97,7 @@ public static class MyDeltaServices
     /// <summary>
     /// 创建一个新的 MyDelta 实例
     /// </summary>
-    /// <typeparam name="TInstance">结构类型</typeparam>
+    /// <typeparam name="TInstance">类型</typeparam>
     /// <param name="factory"></param>
     /// <returns>MyDelta 实例</returns>
     public static MyDelta<TInstance> Create<TInstance>(this IMyDeltaFactory<TInstance> factory)

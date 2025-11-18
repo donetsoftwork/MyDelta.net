@@ -9,8 +9,8 @@ namespace MyDeltaBench.Members;
 public class GetStringBench : MemberBenchBase
 {
     IMemberAccessor<TestClass> _propertyName = _property["Name"];
-    static Func<TestClass, object?> _emitGetter = Poco.Global.GetReadFunc<TestClass, object?>("Name");
-    static Action<TestClass, object?> _emitSetter = Poco.Global.GetWriteAction<TestClass, object?>("Name");
+    static Func<TestClass, object?> _emitGetter = Poco.Default.GetReadFunc<TestClass, object?>("Name");
+    static Action<TestClass, object?> _emitSetter = Poco.Default.GetWriteAction<TestClass, object?>("Name");
     IMemberAccessor<TestClass> _emitName = new DelegateAccessor<TestClass>(typeof(string), _emitGetter, _emitSetter);
     IMemberAccessor<TestClass> _hardCodeName = new DelegateAccessor<TestClass>(typeof(string),
         obj => obj.Name,

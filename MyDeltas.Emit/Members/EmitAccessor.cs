@@ -1,10 +1,8 @@
-using MyDeltas.Emit.Reflection;
-using MyDeltas.Members;
-using PocoEmit;
+using MyDeltas.Reflection;
 using PocoEmit.Members;
 using System;
 
-namespace MyDeltas.Emit.Members;
+namespace MyDeltas.Members;
 
 /// <summary>
 /// Emit成员访问器
@@ -13,7 +11,7 @@ namespace MyDeltas.Emit.Members;
 /// <param name="reader"></param>
 /// <param name="writer"></param>
 public class EmitAccessor<TInstance>(IEmitMemberReader reader, IEmitMemberWriter writer)
-    : MyDeltas.Members.MemberAccessor<TInstance>(writer.ValueType), IMemberAccessor<TInstance>
+    : MemberAccessor<TInstance>(writer.ValueType), IMemberAccessor<TInstance>
 {
     #region 配置
     private readonly IEmitMemberReader _reader = reader;

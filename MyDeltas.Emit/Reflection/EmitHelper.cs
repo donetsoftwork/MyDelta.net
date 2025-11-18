@@ -2,7 +2,7 @@ using PocoEmit.Members;
 using System;
 using System.Linq.Expressions;
 
-namespace MyDeltas.Emit.Reflection;
+namespace MyDeltas.Reflection;
 
 /// <summary>
 /// Emit帮助类

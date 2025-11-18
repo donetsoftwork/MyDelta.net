@@ -1,12 +1,10 @@
-using MyDeltas.Emit.Members;
 using MyDeltas.Members;
 using PocoEmit;
 using PocoEmit.Collections;
-using PocoEmit.Configuration;
 using System;
 using System.Collections.Generic;
 
-namespace MyDeltas.Emit;
+namespace MyDeltas;
 
 /// <summary>
 /// Emit成员访问器工厂
@@ -20,7 +18,7 @@ public class EmitDeltaFactory(IPoco options, IEqualityComparer<string> memberCom
     /// 默认成员访问器工厂
     /// </summary>
     public EmitDeltaFactory()
-        : this(Poco.Global, StringComparer.Ordinal)
+        : this(Poco.Default, StringComparer.Ordinal)
     {
     }
     #region 配置
@@ -39,7 +37,6 @@ public class EmitDeltaFactory(IPoco options, IEqualityComparer<string> memberCom
         if (bundle == null)
             return;
         var readerCacher = MemberContainer.Instance.MemberReaderCacher;
-        var writerCacher = MemberContainer.Instance.MemberWriterCacher;
         foreach (var writer in bundle.EmitWriters.Values)
         {
             var member = writer.Info;

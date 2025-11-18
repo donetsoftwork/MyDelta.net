@@ -2,6 +2,7 @@ using MyDeltas.Json;
 using MyDeltas.Members;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace MyDeltas;
@@ -14,15 +15,16 @@ namespace MyDeltas;
 /// <param name="members"></param>
 /// <param name="changed"></param>
 [JsonConverter(typeof(MyDeltaConverterFactory))]
+[DefaultMember("Data")]
 public class MyDelta<TInstance>(TInstance instance, IDictionary<string, IMemberAccessor<TInstance>> members,  IDictionary<string, object?> changed)
     : MyDelta(changed)
 {
     /// <summary>
     /// 数据变化
     /// </summary>
-    /// <param name="properties"></param>
-    public MyDelta(IDictionary<string, IMemberAccessor<TInstance>> properties)
-        : this(Activator.CreateInstance<TInstance>(), properties, new Dictionary<string, object?>())
+    /// <param name="members"></param>
+    public MyDelta(IDictionary<string, IMemberAccessor<TInstance>> members)
+        : this(Activator.CreateInstance<TInstance>(), members, new Dictionary<string, object?>())
     {
     }
     #region 配置
@@ -30,7 +32,7 @@ public class MyDelta<TInstance>(TInstance instance, IDictionary<string, IMemberA
     private readonly TInstance _instance = instance;
     /// <summary>
     /// 实体
-    /// </summary>
+    /// </summary>    
     public TInstance Instance
         => _instance;
     #endregion

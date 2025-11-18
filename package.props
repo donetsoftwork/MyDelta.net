@@ -1,18 +1,18 @@
 <Project>
-
-  <PropertyGroup>
-    <VersionBase>0.3.1</VersionBase>    
-    <LangVersion>Latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>    
-    <Authors>jiangxiangji</Authors>
-    <Company>MyDelta.net</Company>
-    <Copyright>Copyright (c) MyDelta.net All Rights Reserved</Copyright>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/donetsoftwork/MyDelta.net</RepositoryUrl>
-    <PackageProjectUrl>https://donetsoftwork.github.io/MyDelta.net</PackageProjectUrl>
-    <!-- SourceLink settings -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-  </PropertyGroup>
+	<PropertyGroup>
+		<VersionBase>0.4.0</VersionBase>
+		<LangVersion>Latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Authors>jiangxiangji</Authors>
+		<Company>MyDelta.net</Company>
+		<Copyright>Copyright (c) MyDelta.net All Rights Reserved</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/donetsoftwork/MyDelta.net</RepositoryUrl>
+		<PackageProjectUrl>https://donetsoftwork.github.io/MyDelta.net</PackageProjectUrl>
+		<!-- SourceLink settings -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageOutputPath>D:\nuget</PackageOutputPath>
+	</PropertyGroup>
 </Project>
